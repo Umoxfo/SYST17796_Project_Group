@@ -1,7 +1,7 @@
 package ca.sheridancollege.project.card;
 
 /**
- * This {@code Wild} class represents a Wild card of the UNO.
+ * This {@code WildCard} class represents a WildCard card of the UNO.
  *
  * <p>
  * This card can be placed on any card. The player has to choose the next colour
@@ -9,28 +9,26 @@ package ca.sheridancollege.project.card;
  * <p>
  * At the beginning of the play, the first player chooses the first color and plays a card in it.
  * <p>
- *
+ * <p>
  * Date: February 22, 2021
  *
  * @author Makoto Sakaguchi
  */
-public class Wild extends Card {
+public class WildCard extends Card {
     /**
-     *
+     * Constructs a new {@code WildCard} object.
      */
-    public Wild() {
-        this(null, Value.WILD);
+    public WildCard() {
+        super(null, Value.WILD);
     }
 
     /**
-     * Students should implement this method for their specific children classes
+     * Constructs a new {@code WildCard} object by the specified {@linkplain Value gVal}.
      *
-     * @param color
-     * @param gVal
-     * @return a String representation of a card. Could be an UNO card, a regular playing card etc.
+     * @param gVal The {@linkplain Value value} of this card.
      */
-    public Wild(Color color, Value gVal) {
-        super(color, gVal);
+    protected WildCard(Value gVal) {
+        super(null, gVal);
     }
 
     /**
@@ -41,5 +39,12 @@ public class Wild extends Card {
     @Override
     public void setColor(Color color) {
         super.setColor(color);
+    }
+
+    /**
+     * Unsets the colour of this card.
+     */
+    public void clearColor() {
+        super.setColor(null);
     }
 }

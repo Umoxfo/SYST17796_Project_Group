@@ -1,7 +1,9 @@
 package ca.sheridancollege.project.card;
 
+import ca.sheridancollege.project.util.Message;
+
 /**
- * This {@code WildDrawFour} class represents a Wild Draw Four card of the UNO.
+ * This {@code WildDrawFourCard} class represents a WildCard Draw Four card of the UNO.
  *
  * <p>
  * This card can be placed on any card. The player has to choose the next colour,
@@ -13,26 +15,31 @@ package ca.sheridancollege.project.card;
  * <p>
  * At the beginning of the play, return this card to the Draw pile, shuffle, and turn up a new one.
  * <p>
- *
+ * <p>
  * Date: February 22, 2021
  *
  * @author Makoto Sakaguchi
  */
-public class WildDrawFour extends Wild {
+public class WildDrawFourCard extends WildCard implements DrawCard {
     /**
+     * Constructs a new {@code WildDrawFourCard} object.
      */
-    public WildDrawFour() {
-        this(null, Value.WILD_DRAW_FOUR);
+    public WildDrawFourCard() {
+        super(Value.WILD_DRAW_FOUR);
+    }
+
+    @Override
+    public int getDraw() {
+        return DRAW_FOUR;
     }
 
     /**
-     * Students should implement this method for their specific children classes
-     *
-     * @param color
-     * @param gVal
-     * @return a String representation of a card. Could be an UNO card, a regular playing card etc.
+     * Shows the message about Wild Draw 4.
      */
-    public WildDrawFour(Color color, Value gVal) {
-        super(color, gVal);
+    @Override
+    public void showMessage() {
+        Message.printf("draw.card.the.next.player.must.draw.cards.and.lose.their.turn", DRAW_FOUR);
     }
+
+
 }
