@@ -18,11 +18,8 @@ import ca.sheridancollege.project.util.Message;
  */
 public class Uno {
     public static void main(String[] args) {
-        Game gameSession = new Game(Command.prompt("client.enter.this.game.room.name"));
-        gameSession.playGame();
-
-
-        //Client client = new Client();
+        Client client = new Client();
+        client.playGame();
     }
 }
 
@@ -39,6 +36,10 @@ class Client {
         gameSession = new Game(Command.prompt("client.enter.this.game.room.name"));
 
         enterGameRoom();
+    }
+
+    void playGame() {
+        gameSession.playGame();
     }
 
     private void enterGameRoom() {
