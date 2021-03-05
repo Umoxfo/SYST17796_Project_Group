@@ -4,7 +4,7 @@ package ca.sheridancollege.project;
  * Group Members
  * @author Makoto Sakaguchi
  * @author Bumsoo Park
- * @author Zoran
+ * @author Zoran Baboo
  */
 public class Card {
     public enum Colors {Red, Yellow, Green, Blue}
