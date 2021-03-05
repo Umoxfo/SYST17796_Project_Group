@@ -16,7 +16,7 @@ import java.util.stream.Stream;
  *
  * @author Makoto Sakaguchi
  * @author Bumsoo Park
- * @author Zoran
+ * @author Zoran Baboo
  */
 public class Card implements Comparable<Card> {
     private final Value value;

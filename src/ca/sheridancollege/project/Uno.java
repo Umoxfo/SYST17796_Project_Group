@@ -14,7 +14,7 @@ import ca.sheridancollege.project.util.Message;
  *
  * @author Makoto Sakaguchi
  * @author Bumsoo Park
- * @author Zoran
+ * @author Zoran Baboo
  */
 public class Uno {
     public static void main(String[] args) {
