@@ -9,12 +9,14 @@ import java.util.Objects;
 import java.util.Random;
 
 /**
- * The {@code ComputerPlayer} class represents a CPU player.
- * Players have an identifier, which should be unique.
+ * <p>The {@code ComputerPlayer} class represents a CPU player.
+ * Players have an identifier, which should be unique.</p>
+ * <br>
  *
- * <p>
- * Date: March 1, 2021<br>
- * Editor: Makoto Sakaguchi
+ * <ul style="list-style-type: none">
+ * <li>Date: March 1, 2021</li>
+ * <li>Editor: Makoto Sakaguchi</li>
+ * </ul>
  *
  * @author Makoto Sakaguchi
  */
@@ -55,13 +57,13 @@ public class ComputerPlayer extends Player {
         playHandCard();
 
         // Randomly decide whether to play from their hand or draw a card
-//        if (rng.nextBoolean()) playHandCard();
-//        else drawCard();
+        if (rng.nextBoolean()) playHandCard();
+        else drawCard();
     }
 
     @Override
     public void drawCard() {
-        Card card = gameSession.draw(getPlayerID());
+        Card card = gameSession.draw(getPlayerId());
 
         // If the drawn card is playable, randomly decide whether to play it or add it to their hand
         if (gameSession.isPlayableCard(card) && rng.nextBoolean()) {
@@ -105,7 +107,8 @@ public class ComputerPlayer extends Player {
      */
     @Override
     public int compareTo(Player anotherPlayer) {
-        return anotherPlayer instanceof ComputerPlayer ? playerNumber - ((ComputerPlayer) anotherPlayer).playerNumber : 1;
+        return anotherPlayer instanceof ComputerPlayer
+                   ? playerNumber - ((ComputerPlayer) anotherPlayer).playerNumber : 1;
     }
 
     private void playHandCard() {
@@ -115,7 +118,8 @@ public class ComputerPlayer extends Player {
         int handSize = handCards.size();
         for (int i = 0; i < handSize; i++) {
             Card card = handCards.get(i);
-            if (discardCard.matchCard(card) || (Game.isWildDrawFour(card) ? noMatchingColor : card instanceof WildCard)) {
+            if (discardCard.matchCard(card)
+                    || (Game.isWildDrawFour(card) ? noMatchingColor : card instanceof WildCard)) {
                 // Auto UNO call
                 callUno();
 

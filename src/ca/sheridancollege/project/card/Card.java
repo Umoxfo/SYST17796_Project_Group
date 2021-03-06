@@ -8,29 +8,31 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
- * The {@code Card} class represents a basic UNO card.<br>
- * <p>
- * Date: February 22, 2021<br>
- * <p>
- * Group Members
+ * The {@code Card} class represents a basic UNO card.
+ *
+ * <p>Date: February 22, 2021</p>
+ * <br>
+ *
+ * <b>Group Members</b>
  *
  * @author Makoto Sakaguchi
  * @author Bumsoo Park
  * @author Zoran Baboo
  */
+@SuppressWarnings("checkstyle:RightCurly")
 public class Card implements Comparable<Card> {
     private final Value value;
     private Color color;
 
     /**
-     * Constructs a new {@code Card} object by the specified {@linkplain Color color} and {@linkplain Value gVal}.
+     * Constructs a new {@code Card} object by the specified {@linkplain Color color} and {@linkplain Value value}.
      *
-     * @param color The colour of this card.
-     * @param gVal  The {@linkplain Value value} of this card.
+     * @param color the colour of this card
+     * @param value the {@linkplain Value value} of this card
      */
-    public Card(Color color, Value gVal) {
+    public Card(Color color, Value value) {
         this.color = color;
-        value = gVal;
+        this.value = value;
     }
 
     /**
@@ -74,7 +76,9 @@ public class Card implements Comparable<Card> {
     /**
      * Shows the message about this card.
      */
-    public void showMessage() { /* NOTHING IMPLEMENT */ }
+    public void showMessage() {
+        /* NOTHING IMPLEMENT */
+    }
 
     @Override
     public int hashCode() {
@@ -87,7 +91,8 @@ public class Card implements Comparable<Card> {
      * is a {@code Card} object that has the same {@link Color colour} and {@link Value value} as this object.
      *
      * @param o the object to compare this {@code Card} against
-     * @return {@code true} if the given object represents a {@code Card} equivalent to this card, otherwise {@code false}
+     * @return {@code true} if the given object represents a {@code Card} equivalent to this card,
+     * otherwise {@code false}
      */
     @Override
     public boolean equals(Object o) {
@@ -100,8 +105,8 @@ public class Card implements Comparable<Card> {
 
     @Override
     public int compareTo(Card anotherCard) {
-        if (color == null || anotherCard.color == null) return value.compareTo(anotherCard.value);
-        return color.compareTo(anotherCard.color);
+        return color == null || anotherCard.color == null
+                   ? value.compareTo(anotherCard.value) : color.compareTo(anotherCard.color);
     }
 
     /**
@@ -115,15 +120,16 @@ public class Card implements Comparable<Card> {
     }
 
     /**
-     * UNO card colours
+     * UNO card colours.
      */
-    public enum Color {Blue, Green, Yellow, Red}
+    public enum Color {
+        Blue, Green, Yellow, Red
+    }
 
     /**
-     * Kind of UNO cards<br>
+     * Kind of UNO cards.<br>
      *
-     * <p>
-     * <b>The following consists and effects:</b> (Note: two cards of each colour (4 colours) if not mentioned)
+     * <p><b>The following consists and effects:</b> (Note: two cards of each colour (4 colours) if not mentioned)</p>
      * <dl>
      *  <dt>{@code ZERO}</dt>
      *  <dd>One of each colour (4 colours)</dd>
@@ -131,7 +137,8 @@ public class Card implements Comparable<Card> {
      *  <dt>Skip</dt>
      *  <dd>The next player or the first player at the beginning of the play loses their turn.</dd>
      *  <dt>Reverse</dt>
-     *  <dd>The direction of the play reverse (if a play is currently to the left, then play changes to the right, and vice versa).</dd>
+     *  <dd>The direction of the play reverse (if a play is currently to the left,
+     *      then play changes to the right, and vice versa).</dd>
      *  <dt>Draw Two</dt>
      *  <dd>The next player or the first player at the beginning of play must draw 2 cards and miss their turn.</dd>
      *  <dt>Wild</dt>

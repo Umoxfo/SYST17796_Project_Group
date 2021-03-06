@@ -1,9 +1,9 @@
 package ca.sheridancollege.project.card;
 
 /**
- * This {@code DrawCard} interface that provides the number of cards that the next player must draw.<br>
- * <p>
- * Date: February 25, 2021<br>
+ * This {@code DrawCard} interface that provides the number of cards that the next player must draw.
+ *
+ * <p>Date: February 25, 2021
  *
  * @author Makoto Sakaguchi
  */

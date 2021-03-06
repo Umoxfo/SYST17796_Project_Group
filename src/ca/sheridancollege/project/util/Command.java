@@ -7,9 +7,9 @@ import java.util.Scanner;
 import java.util.regex.Pattern;
 
 /**
- * This class consists only of static methods that operate the commands of this program.<br>
- * <p>
- * Date: February 26, 2021<br>
+ * <p>This class consists only of static methods that operate the commands of this program.</p>
+ *
+ * <p>Date: February 26, 2021
  *
  * @author Makoto Sakaguchi
  */
@@ -91,7 +91,7 @@ public class Command {
      */
     public static String showGamePrompt() {
         // Displays the game commands for this program.
-        Message.printf("command.game.commands", Game.SHOW_HAND.command, Game.SHOW_PLAYABLE_CARDS.command,
+        Message.stdPrintf("command.game.commands", Game.SHOW_HAND.command, Game.SHOW_PLAYABLE_CARDS.command,
             Game.UNO.command, Game.DRAW_A_CARD.command, Game.QUIT.command);
 
         initScanner();
@@ -99,15 +99,20 @@ public class Command {
         String str = scanner.findInLine(gamePromptPattern);
         if (str == null) {
             // Displays the message about the unknown (invalid) command.
-            Message.println("error.unknown.command.please.enter.again");
+            Message.stdPrintln("error.unknown.command.please.enter.again");
             return showGamePrompt();
         }
 
         return str;
     }
 
+    /**
+     * Displays the card colour prompt.
+     *
+     * @return the {@linkplain Card.Color card color}
+     */
     public static Card.Color showCardColorPrompt() {
-        Message.println("command.color.select.a.colour");
+        Message.stdPrintln("command.color.select.a.colour");
         Card.Color[] colors = Card.Color.values();
         for (int i = 0; i < colors.length; i++) {
             System.out.println(i + ": " + colors[i]);
@@ -131,7 +136,7 @@ public class Command {
      * Displays the message that a player has chosen an unplayable card.
      */
     public static void showUnplayableCardMessage() {
-        Message.printf("error.human.player.unplayable.card", Game.SHOW_PLAYABLE_CARDS.command);
+        Message.stdPrintf("error.human.player.unplayable.card", Game.SHOW_PLAYABLE_CARDS.command);
     }
 
     /**
@@ -143,16 +148,16 @@ public class Command {
         if (confirmPrompt(messageKey)) System.exit(0);
     }
 
-    synchronized private static void initScanner() {
+    private static synchronized void initScanner() {
         if (scanner == null) scanner = new Scanner(System.in);
 
         // Clear the input buffer
-//        System.out.println();
-//        scanner.nextLine();
+        // System.out.println();
+        // scanner.nextLine();
     }
 
     /**
-     * The game commands of this program
+     * The game commands of this program.
      */
     public enum Game {
         SHOW_HAND('L'),
@@ -191,7 +196,8 @@ public class Command {
 
         /**
          * Returns the enum constant of this type with the specified {@code command}.
-         * The character must match an identifier used to declare an enum constant in this type. (Ignores case differences.)
+         * The character must match an identifier used to declare an enum constant in this type.
+         * (Ignores case differences.)
          *
          * @param command the {@code command} of the constant to return
          * @return the enum constant with the specified {@code command}

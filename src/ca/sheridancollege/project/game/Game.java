@@ -8,15 +8,21 @@ import ca.sheridancollege.project.player.HumanPlayer;
 import ca.sheridancollege.project.player.Player;
 import ca.sheridancollege.project.util.Command;
 
-import java.util.*;
+import java.util.ArrayDeque;
+import java.util.Collections;
+import java.util.List;
+import java.util.ListIterator;
+import java.util.ResourceBundle;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.Collectors;
 
 /**
  * The {@code Game} class performs the Uno game as a dealer.<br>
- * <p>
- * Date: February 23, 2021<br>
- * Editor: Makoto Sakaguchi
+ *
+ * <ul style="list-style-type: none">
+ * <li>Date: February 23, 2021</li>
+ * <li>Editor: Makoto Sakaguchi</li>
+ * </ul>
  *
  * @author Makoto Sakaguchi
  * @see <a href="https://service.mattel.com/us/productDetail.aspx?prodno=GDJ85&siteid=27">UNO&#174; Instruction Sheets</a>
@@ -39,7 +45,8 @@ public class Game extends GameRoom {
     private ListIterator<Card> drawPile;
 
     /**
-     * Constructs a new {@code GameRoom} object by the specified game name and the {@linkplain UnoDeck classic Uno} deck.
+     * Constructs a new {@code GameRoom} object by the specified game name
+     * and the {@linkplain UnoDeck classic Uno} deck.
      *
      * @param gameName The name of this game
      */
@@ -91,8 +98,7 @@ public class Game extends GameRoom {
     /**
      * Returns {@code true} if the specified card is playable.
      *
-     * <p>
-     * A playable card matches the card on the top of the Discard pile, either by colour, number, or symbol.
+     * <p>A playable card matches the card on the top of the Discard pile, either by colour, number, or symbol.
      * Alternatively, a Wild's card.
      *
      * @return {@code true} if the card is playable, otherwise {@code false}.
@@ -118,7 +124,7 @@ public class Game extends GameRoom {
             showCurrentDiscard();
 
             curPlayer = playerList.getFirst();
-            System.out.printf(messageBundle.getString("game.player.turn"), curPlayer.getPlayerID());
+            System.out.printf(messageBundle.getString("game.player.turn"), curPlayer.getPlayerId());
             curPlayer.play();
 
             nextPlayer();
@@ -129,7 +135,7 @@ public class Game extends GameRoom {
 
         // Result
         Command.clearScreen();
-        System.out.printf(messageBundle.getString("game.result.winner"), curPlayer.getPlayerID());
+        System.out.printf(messageBundle.getString("game.result.winner"), curPlayer.getPlayerId());
 
         // Remove computer players
         removeComputers();
@@ -156,15 +162,18 @@ public class Game extends GameRoom {
             case SKIP -> nextPlayer();
             case REVERSE -> Collections.reverse(playerList);
             case DRAW_TWO, WILD_DRAW_FOUR -> {
+                // TODO: a Wild Draw 4 card handling
+
                 // The next player must draw n cards and lose their turn.
-                draw(((DrawCard) card).getDraw(), playerList.get(1));
+                drawPenalty(((DrawCard) card).getDraw(), playerList.get(1));
                 nextPlayer();
             }
+            default -> throw new IllegalStateException("Unexpected value: " + card.getValue());
         }
     }
 
     /**
-     * Displays the card on the top of the Discard pile,
+     * Displays the card on the top of the Discard pile.
      */
     public void showCurrentDiscard() {
         System.out.printf(messageBundle.getString("game.current.card.on.the.discard.pile"), discardPile.peekFirst());
@@ -173,11 +182,11 @@ public class Game extends GameRoom {
     /**
      * Draws the top card of the Draw pile.
      *
-     * @param playerID the string of the player ID (name) who draws draw a card
+     * @param playerId the string of the player ID (name) who draws draw a card
      * @return the top card of the Draw pile
      */
-    public Card draw(String playerID) {
-        System.out.printf(messageBundle.getString("game.draws.a.card"), playerID);
+    public Card draw(String playerId) {
+        System.out.printf(messageBundle.getString("game.draws.a.card"), playerId);
 
         if (!drawPile.hasNext()) {
             regenerateDrawPile();
@@ -200,11 +209,10 @@ public class Game extends GameRoom {
     /**
      * Challenges a player suspected of illegally playing a Wild Draw 4 card (i.e. the player has a matching card).
      *
-     * <p>
-     * The challenged player must show the challenger their hand.
+     * <p>The challenged player must show the challenger their hand.
      * If guilty, the challenged player must draw the 4 cards instead.
      * Otherwise, if the player is innocent,
-     * the challenger must draw 4 cards PLUS 2 additional cards (for a total of 6 cards).
+     * the challenger must draw 4 cards PLUS 2 additional cards (for a total of 6 cards).</p>
      *
      * @param challenger the player that challenged the previous player
      */
@@ -267,8 +275,8 @@ public class Game extends GameRoom {
      * @param n      the number of cards to draw
      * @param player the player adds the drawn cards to his or her hand.
      */
-    private void draw(int n, Player player) {
-        String playerId = player.getPlayerID();
+    private void drawPenalty(int n, Player player) {
+        String playerId = player.getPlayerId();
         for (int i = 0; i < n; i++) player.addHand(draw(playerId));
     }
 
@@ -276,8 +284,8 @@ public class Game extends GameRoom {
      * Draws the specified number of cards as a <b>penalty</b>.
      */
     private void penalty(Player player, PenaltyTypes penaltyType) {
-        showPenaltyMessage(player.getPlayerID(), penaltyType);
-        draw(penaltyType.number, player);
+        showPenaltyMessage(player.getPlayerId(), penaltyType);
+        drawPenalty(penaltyType.number, player);
     }
 
     /* Moves the next player. */
@@ -306,16 +314,17 @@ public class Game extends GameRoom {
     }
 
     private void regenerateDrawPile() {
-        // Store the card on the top of the Discard pile
-        Card card = discardPile.pop();
-
         /* Regenerate a new Draw pile */
         List<Card> cards = discardPile.stream().peek(Game::resetWildCard).collect(Collectors.toList());
         Collections.shuffle(cards);
         drawPile = cards.listIterator();
 
-        // Restore the last card
+        // Store the card on the top of the Discard pile
+        Card card = discardPile.pop();
+
         discardPile.clear();
+
+        // Restore the last card
         discardPile.push(card);
     }
 

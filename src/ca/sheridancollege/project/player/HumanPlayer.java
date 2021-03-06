@@ -6,19 +6,22 @@ import ca.sheridancollege.project.util.Command;
 import ca.sheridancollege.project.util.Message;
 
 /**
- * The {@code HumanPlayer} class represents a human player.
- * Players have an identifier, which should be unique.<br>
- * <p>
- * Date: February 23, 2021<br>
- * Editor: Makoto Sakaguchi
+ * <p>The {@code HumanPlayer} class represents a human player.
+ * Players have an identifier, which should be unique.</p>
+ * <br>
+ *
+ * <ul style="list-style-type: none">
+ * <li>Date: February 23, 2021</li>
+ * <li>Editor: Makoto Sakaguchi</li>
+ * </ul>
  *
  * @author Makoto Sakaguchi, Feb 23, 2021
  */
 public class HumanPlayer extends Player {
     /**
-     * A constructor that allows to set the player's unique name
+     * A constructor that allows to set the player's unique name.
      *
-     * @param name    the unique name to assign to this player.
+     * @param name the unique name to assign to this player.
      */
     public HumanPlayer(String name) {
         super(name);
@@ -33,11 +36,12 @@ public class HumanPlayer extends Player {
 
     @Override
     public void drawCard() {
-        Message.println("human.player.take.a.card.from.the.draw.pile");
+        Message.stdPrintln("human.player.take.a.card.from.the.draw.pile");
 
-        Card card = gameSession.draw(getPlayerID());
+        Card card = gameSession.draw(getPlayerId());
 
-        if (gameSession.isPlayableCard(card) && Command.confirmPrompt("human.player.is.playable.do.you.play.it", card)) {
+        if (gameSession.isPlayableCard(card)
+                && Command.confirmPrompt("human.player.is.playable.do.you.play.it", card)) {
             gameSession.playCard(card);
         } else {
             addHand(card);
@@ -53,7 +57,7 @@ public class HumanPlayer extends Player {
      * Compares this {@code HumanPlayer} object with the specified {@code Player} object for order.
      *
      * @implNote
-     * This class has a natural ordering that is inconsistent with {@code equals}.
+     *      This class has a natural ordering that is inconsistent with {@code equals}.
      *
      * @param anotherPlayer the {@code Player} to be compared.
      * @return the value {@code 0} if the argument {@code Player} is an instance or subclass of this object,
@@ -81,7 +85,7 @@ public class HumanPlayer extends Player {
         }
 
         // Have any playable cards?
-        if (count == 0) Message.println("human.player.you.have.no.playable.cards");
+        if (count == 0) Message.stdPrintln("human.player.you.have.no.playable.cards");
     }
 
     private void gamePrompt() {
@@ -105,7 +109,7 @@ public class HumanPlayer extends Player {
                 return;
             }
             case QUIT -> Command.exit("are.you.sure.you.want.to.quit.this.game.and.exit.the.program");
-            default -> Message.println("error.unknown.command.please.enter.again");
+            default -> Message.stdPrintln("error.unknown.command.please.enter.again");
         }
 
         gamePrompt();

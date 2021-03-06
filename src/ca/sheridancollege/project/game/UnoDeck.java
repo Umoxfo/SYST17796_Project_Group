@@ -1,18 +1,22 @@
 package ca.sheridancollege.project.game;
 
-import ca.sheridancollege.project.card.*;
+import ca.sheridancollege.project.card.Card;
 import ca.sheridancollege.project.card.Card.Color;
 import ca.sheridancollege.project.card.Card.Value;
+import ca.sheridancollege.project.card.DrawTwoCard;
+import ca.sheridancollege.project.card.ReverseCard;
+import ca.sheridancollege.project.card.SkipCard;
+import ca.sheridancollege.project.card.WildCard;
+import ca.sheridancollege.project.card.WildDrawFourCard;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 /**
- * The {@code UnoDeck} class represents the classic Uno cards (108 cards).<br>
+ * The {@code UnoDeck} class represents the classic Uno cards (108 cards).
  *
- * <p>
- * <b>The following consists and effects:</b> (Note: two cards of each colour (4 colours) if not mentioned)
+ * <p><b>The following consists and effects:</b> (Note: two cards of each colour (4 colours) if not mentioned)</p>
  * <dl>
  *  <dt>{@code ZERO}</dt>
  *  <dd>One of each colour (4 colours)</dd>
@@ -20,7 +24,10 @@ import java.util.List;
  *  <dt>SkipCard</dt>
  *  <dd>The next player or the first player at the beginning of the play loses their turn.</dd>
  *  <dt>Reverse</dt>
- *  <dd>The direction of the play reverse (if a play is currently to the left, then play changes to the right, and vice versa).</dd>
+ *  <dd>
+ *    The direction of the play reverse (if a play is currently to the left,
+ *    then play changes to the right, and vice versa).
+ *  </dd>
  *  <dt>Draw Two</dt>
  *  <dd>The next player or the first player at the beginning of play must draw 2 cards and miss their turn.</dd>
  *  <dt>WildCard</dt>
@@ -31,8 +38,8 @@ import java.util.List;
  *  <dd>See the {@link WildDrawFourCard} class</dd>
  * </dl>
  * <br>
- * <p>
- * Date: February 22, 2021<br>
+ *
+ * <p>Date: February 22, 2021
  *
  * @author Makoto Sakaguchi
  * @see <a href="https://www.unorules.com/">Original Uno Rules</a>
@@ -44,7 +51,8 @@ public class UnoDeck {
     public static final int CLASSIC_UNO_CARDS = 108;
 
     /**
-     * The Number of cards 1 to 9, {@code SkipCard}, {@code Reverse}, and {@code Draw Two} are {@value} each in the four colours.
+     * The Number of cards 1 to 9, {@code SkipCard}, {@code Reverse}, and {@code Draw Two}
+     * are {@value} each in the four colours.
      */
     public static final int COMMON_CARD_SETS = 2;
 
@@ -53,7 +61,7 @@ public class UnoDeck {
      */
     public static final int CLASSIC_WILD_CARDS = 4;
 
-    // The immutable list of the 1 to 9, SkipCard, Reverse, and "Draw Two" cards.
+    // The immutable list of the 1 to 9 cards.
     private static final List<Value> COMMON_CARDS;
 
     static {
@@ -86,6 +94,8 @@ public class UnoDeck {
     }
 
     /**
+     * Returns the card list in this deck.
+     *
      * @return the card list of this deck
      */
     public ArrayList<Card> getCards() {
@@ -127,6 +137,8 @@ public class UnoDeck {
     }
 
     /**
+     * Randomly permutes the specified list using a default source of randomness.
+     *
      * @see Collections#shuffle(List)
      */
     public void shuffle() {

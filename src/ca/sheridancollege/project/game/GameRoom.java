@@ -9,10 +9,13 @@ import java.util.List;
 import java.util.function.Predicate;
 
 /**
- * The {@code GameRoom} class represents the Uno game room.<br>
- * <p>
- * Date: February 23, 2021<br>
- * Editor: Makoto Sakaguchi
+ * <p>The {@code GameRoom} class represents the Uno game room.</p>
+ * <br>
+ *
+ * <ul style="list-style-type: none">
+ * <li>Date: February 23, 2021</li>
+ * <li>Editor: Makoto Sakaguchi</li>
+ * </ul>
  *
  * @author Makoto Sakaguchi
  */
@@ -35,13 +38,17 @@ public class GameRoom {
     }
 
     /**
-     * @return the gameName
+     * Returns the name of this game room.
+     *
+     * @return the game name string
      */
     public String getGameName() {
         return gameName;
     }
 
     /**
+     * Returns a synchronized (thread-safe) list that contains the player list of this game.
+     *
      * @return the player list of this game
      */
     public List<Player> getPlayerList() {
@@ -68,7 +75,7 @@ public class GameRoom {
      * @see LinkedList#removeIf(Predicate)
      */
     public void removePlayer(String playerId) {
-        playerList.removeIf(pl -> pl.getPlayerID().equals(playerId));
+        playerList.removeIf(pl -> pl.getPlayerId().equals(playerId));
     }
 
     /**
@@ -87,6 +94,6 @@ public class GameRoom {
      * Removes all computer players.
      */
     protected void removeComputers() {
-        playerList.removeIf(pl -> pl instanceof ComputerPlayer);
+        playerList.removeIf(ComputerPlayer.class::isInstance);
     }
 }

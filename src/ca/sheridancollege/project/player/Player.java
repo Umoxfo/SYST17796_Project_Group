@@ -9,11 +9,14 @@ import java.util.LinkedList;
 import java.util.Objects;
 
 /**
- * A class that models each player in the Uno game.
- * Players have an identifier, which should be unique.<br>
- * <p>
- * Date: February 23, 2021<br>
- * Editor: Makoto Sakaguchi
+ * <p>A class that models each player in the Uno game.
+ * Players have an identifier, which should be unique.</p>
+ * <br>
+ *
+ * <ul style="list-style-type: none">
+ * <li>Date: February 23, 2021</li>
+ * <li>Editor: Makoto Sakaguchi</li>
+ * </ul>
  *
  * @author dancye, 2018
  * @author Makoto Sakaguchi, Feb 23, 2021
@@ -26,9 +29,9 @@ public abstract class Player implements Comparable<Player> {
     protected Game gameSession = null;
 
     // The unique ID (or name) for this player
-    private String playerID;
+    private String playerId;
 
-    private boolean calledUNO = false;
+    private boolean calledUno = false;
 
     /**
      * A constructor that allows you to set the player's unique name.
@@ -44,23 +47,29 @@ public abstract class Player implements Comparable<Player> {
             throw new IllegalArgumentException("The player name must NOT be empty or only white space.");
         }
 
-        playerID = name.strip();
+        playerId = name.strip();
         handCards = new LinkedList<>();
     }
 
     /**
-     * @return the playerID
+     * Returns the player ID (name).
+     *
+     * @return the player ID (name)
      */
-    public String getPlayerID() {
-        return playerID;
+    public String getPlayerId() {
+        return playerId;
     }
 
     /**
+     * Sets the player ID to the specified name.
+     * If the name is either null, empty, or consists only of
+     * {@linkplain Character#isWhitespace(int) white space} codepoints, it will not be changed.
+     *
      * @param name the new player name
      */
-    public void setPlayerID(String name) {
+    public void setPlayerId(String name) {
         if (name == null || name.isBlank()) return;
-        playerID = name;
+        playerId = name.strip();
     }
 
     /**
@@ -86,7 +95,7 @@ public abstract class Player implements Comparable<Player> {
      */
     public void leaveGameSession() {
         handCards.clear();
-        gameSession.removePlayer(playerID);
+        gameSession.removePlayer(playerId);
         gameSession = null;
     }
 
@@ -98,7 +107,7 @@ public abstract class Player implements Comparable<Player> {
      */
     public void initHand(Collection<Card> cards) {
         handCards.clear();
-        calledUNO = false;
+        calledUno = false;
 
         handCards.addAll(cards);
     }
@@ -111,7 +120,7 @@ public abstract class Player implements Comparable<Player> {
      */
     public void addHand(Card card) {
         handCards.add(card);
-        calledUNO = false;
+        calledUno = false;
     }
 
     /**
@@ -130,16 +139,17 @@ public abstract class Player implements Comparable<Player> {
      * @return {@code true} if this player yells "UNO" when playing their next-to-last card, otherwise {@code false}
      */
     public boolean isCalledUno() {
-        return calledUNO;
+        return calledUno;
     }
 
     /**
      * Returns {@code true} if this player does NOT yell "UNO" when playing their next-to-last card.
      *
-     * @return {@code true} if this player does NOT yell "UNO" when playing their next-to-last card, otherwise {@code false}
+     * @return {@code true} if this player does NOT yell "UNO" when playing their next-to-last card,
+     * otherwise {@code false}
      */
     public boolean nonCalledUno() {
-        return handCards.size() <= 1 && !calledUNO;
+        return handCards.size() <= 1 && !calledUno;
     }
 
     /**
@@ -175,8 +185,7 @@ public abstract class Player implements Comparable<Player> {
     /**
      * Plays the turn.
      *
-     * <p>
-     * Player must match a card from their hand to the card, either by number, color or symbol.
+     * <p>Player must match a card from their hand to the card, either by number, color or symbol.
      * Alternatively, the player can put down a Wild's card.
      */
     public abstract void play();
@@ -185,7 +194,7 @@ public abstract class Player implements Comparable<Player> {
      * Draws the top card of the Draw pile.
      *
      * @implSpec If playable, that card can be put down in the same turn;
-     * however, the player may not play any other card from their hand after the draw.
+     *           however, the player may not play any other card from their hand after the draw.
      */
     public abstract void drawCard();
 
@@ -200,8 +209,8 @@ public abstract class Player implements Comparable<Player> {
      * Yells “UNO” (meaning “one”) when playing the next-to-last card.
      */
     public void callUno() {
-        if (handCards.size() == 2 && !calledUNO) {
-            calledUNO = true;
+        if (handCards.size() == 2 && !calledUno) {
+            calledUno = true;
             System.out.println("\033[0;1mUNO!\033[0;0m");
         }
     }
@@ -210,7 +219,7 @@ public abstract class Player implements Comparable<Player> {
      * Displays the current hand.
      */
     public void showHand() {
-        Message.printf("player.player.hand", playerID);
+        Message.stdPrintf("player.player.hand", playerId);
         for (int i = 0; i < handCards.size(); i++) {
             System.out.println(i + ": " + handCards.get(i));
         }
@@ -219,7 +228,7 @@ public abstract class Player implements Comparable<Player> {
 
     @Override
     public int hashCode() {
-        return Objects.hash(playerID);
+        return Objects.hash(playerId);
     }
 
     @Override
@@ -228,6 +237,6 @@ public abstract class Player implements Comparable<Player> {
         if (o == null || getClass() != o.getClass()) return false;
 
         Player player = (Player) o;
-        return playerID.equals(player.playerID);
+        return playerId.equals(player.playerId);
     }
 }

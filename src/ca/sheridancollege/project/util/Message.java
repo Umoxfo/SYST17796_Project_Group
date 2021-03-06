@@ -5,15 +5,17 @@ import java.util.ResourceBundle;
 
 /**
  * This class consists only of static methods that display the messages of this program. <br>
- * <p>
- * Date: February 26, 2021<br>
+ *
+ * <p>Date: February 26, 2021
  *
  * @author Makoto Sakaguchi
  */
 public class Message {
-    protected static ResourceBundle messageBundle = ResourceBundle.getBundle("Message");
+    protected static final ResourceBundle messageBundle = ResourceBundle.getBundle("Message");
 
     /**
+     * Gets a string for the given key from this resource bundle or one of its parents.
+     *
      * @see ResourceBundle#getString(String)
      */
     public static String getMessage(String key) {
@@ -24,7 +26,7 @@ public class Message {
         System.out.print(messageBundle.getString(key));
     }
 
-    public static void println(String key) {
+    public static void stdPrintln(String key) {
         println(System.out, key);
     }
 
@@ -35,7 +37,7 @@ public class Message {
      * @param args see {@link PrintStream#printf(String, Object...)}
      * @see PrintStream#printf(String, Object...)
      */
-    public static void printf(String key, Object... args) {
+    public static void stdPrintf(String key, Object... args) {
         printf(System.out, key, args);
     }
 

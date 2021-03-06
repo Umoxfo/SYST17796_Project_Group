@@ -6,11 +6,12 @@ import ca.sheridancollege.project.util.Command;
 import ca.sheridancollege.project.util.Message;
 
 /**
- * The {@code Card} class represents a UNO program.<br>
- * <p>
- * Date: February 22, 2021<br>
- * <p>
- * Group Members
+ * The {@code Card} class represents a UNO program.
+ *
+ * <p>Date: February 22, 2021</p>
+ * <br>
+ *
+ * <b>Group Members</b>
  *
  * @author Makoto Sakaguchi
  * @author Bumsoo Park
@@ -44,10 +45,10 @@ class Client {
 
     private void enterGameRoom() {
         while (!gameSession.addPlayer(player)) {
-            Message.printf("client.player.name.already.exists.please.use.a.different.name", player.getPlayerID());
+            Message.stdPrintf("client.player.name.already.exists.please.use.a.different.name", player.getPlayerId());
 
             // Update the player name
-            player.setPlayerID(Command.prompt("client.enter.your.player.name"));
+            player.setPlayerId(Command.prompt("client.enter.your.player.name"));
         }
 
         player.setGameSession(gameSession);
