@@ -14,11 +14,6 @@ public class Main {
 
     private UserPrincipal users[] = new UserPrincipal[100];//room for 100 online players!
 
-    /**
-     * Main method with call to private run method, to encapsulate our main functionality.
-     *
-     * @param args - not used
-     */
     public static void main(String[] args) {
         Main newPortal = new Main();
         newPortal.run();
