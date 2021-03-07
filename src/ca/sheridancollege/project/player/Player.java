@@ -37,10 +37,8 @@ public abstract class Player implements Comparable<Player> {
      * A constructor that allows you to set the player's unique name.
      *
      * @param name the unique name to assign to this player.
-     *
-     * @throws IllegalArgumentException
-     *         If a player name string is empty or contains only
-     *         {@linkplain Character#isWhitespace(int) white space} codepoints.
+     * @throws IllegalArgumentException If a player name string is empty or contains only
+     *     {@linkplain Character#isWhitespace(int) white space} codepoints.
      */
     public Player(String name) {
         if (name == null || name.isBlank()) {
@@ -146,7 +144,7 @@ public abstract class Player implements Comparable<Player> {
      * Returns {@code true} if this player does NOT yell "UNO" when playing their next-to-last card.
      *
      * @return {@code true} if this player does NOT yell "UNO" when playing their next-to-last card,
-     * otherwise {@code false}
+     *     otherwise {@code false}
      */
     public boolean nonCalledUno() {
         return handCards.size() <= 1 && !calledUno;
@@ -192,9 +190,6 @@ public abstract class Player implements Comparable<Player> {
 
     /**
      * Draws the top card of the Draw pile.
-     *
-     * @implSpec If playable, that card can be put down in the same turn;
-     *           however, the player may not play any other card from their hand after the draw.
      */
     public abstract void drawCard();
 

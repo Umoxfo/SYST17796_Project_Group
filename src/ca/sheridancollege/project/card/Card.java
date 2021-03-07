@@ -11,7 +11,6 @@ import java.util.stream.Stream;
  * The {@code Card} class represents a basic UNO card.
  *
  * <p>Date: February 22, 2021</p>
- * <br>
  *
  * <b>Group Members</b>
  *
@@ -19,7 +18,6 @@ import java.util.stream.Stream;
  * @author Bumsoo Park
  * @author Zoran Baboo
  */
-@SuppressWarnings("checkstyle:RightCurly")
 public class Card implements Comparable<Card> {
     private final Value value;
     private Color color;
@@ -74,11 +72,9 @@ public class Card implements Comparable<Card> {
     }
 
     /**
-     * Shows the message about this card.
+     * Shows the message about this card action.
      */
-    public void showMessage() {
-        /* NOTHING IMPLEMENT */
-    }
+    public void showMessage() { }
 
     @Override
     public int hashCode() {
@@ -92,7 +88,7 @@ public class Card implements Comparable<Card> {
      *
      * @param o the object to compare this {@code Card} against
      * @return {@code true} if the given object represents a {@code Card} equivalent to this card,
-     * otherwise {@code false}
+     *     otherwise {@code false}
      */
     @Override
     public boolean equals(Object o) {
@@ -103,12 +99,6 @@ public class Card implements Comparable<Card> {
         return color == card.color && value == card.value;
     }
 
-    @Override
-    public int compareTo(Card anotherCard) {
-        return color == null || anotherCard.color == null
-                   ? value.compareTo(anotherCard.value) : color.compareTo(anotherCard.color);
-    }
-
     /**
      * Returns a {@code String} object representing this {@code Card}'s value.
      *
@@ -117,6 +107,12 @@ public class Card implements Comparable<Card> {
     @Override
     public String toString() {
         return String.format(Message.getMessage("card.value.of.color"), value, color);
+    }
+
+    @Override
+    public int compareTo(Card anotherCard) {
+        return color == null || anotherCard.color == null
+                   ? value.compareTo(anotherCard.value) : color.compareTo(anotherCard.color);
     }
 
     /**

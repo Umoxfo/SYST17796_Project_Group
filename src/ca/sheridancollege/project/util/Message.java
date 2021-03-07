@@ -44,7 +44,7 @@ public class Message {
     /**
      * Displays an error message for the specified key.
      *
-     * @param key  the key for the error message string
+     * @param key the key for the error message string
      * @see System#err
      * @see PrintStream#println(String)
      */

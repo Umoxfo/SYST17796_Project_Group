@@ -60,7 +60,7 @@ public class GameRoom {
      *
      * @param player the player to join this game room
      * @return {@code true} if the player is successfully added to the player list in this room;
-     *         {@code false} if there is already a player with the same player ID in this room.
+     *     {@code false} if there is already a player with the same player ID in this room.
      * @see LinkedList#add(Object)
      */
     public boolean addPlayer(Player player) {

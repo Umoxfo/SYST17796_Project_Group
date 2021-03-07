@@ -197,8 +197,6 @@ public class Game extends GameRoom {
 
     /**
      * Catches that the last player played their next-to-last card but did not yell "UNO."
-     *
-     * @implNote Expects after the play moves on to the next player in turn.
      */
     public void catchNonUnoCall(Player lastPlayer) {
         if (lastPlayer.nonCalledUno()) penalty(lastPlayer, PenaltyTypes.NOT_YELL_UNO);

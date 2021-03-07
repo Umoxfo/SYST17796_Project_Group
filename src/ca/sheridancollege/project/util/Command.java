@@ -173,10 +173,6 @@ public class Command {
             this.command = command;
         }
 
-        public char getCommand() {
-            return command;
-        }
-
         /**
          * Returns an array containing the {@code command} of this enum type, in the order they're declared.
          *
@@ -222,6 +218,10 @@ public class Command {
             for (Game game : values()) sb.append(game.command);
 
             return sb.toString();
+        }
+
+        public char getCommand() {
+            return command;
         }
     }
 }

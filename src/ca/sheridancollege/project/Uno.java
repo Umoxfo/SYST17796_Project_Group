@@ -9,7 +9,6 @@ import ca.sheridancollege.project.util.Message;
  * The {@code Card} class represents a UNO program.
  *
  * <p>Date: February 22, 2021</p>
- * <br>
  *
  * <b>Group Members</b>
  *

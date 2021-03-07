@@ -56,12 +56,9 @@ public class HumanPlayer extends Player {
     /**
      * Compares this {@code HumanPlayer} object with the specified {@code Player} object for order.
      *
-     * @implNote
-     *      This class has a natural ordering that is inconsistent with {@code equals}.
-     *
      * @param anotherPlayer the {@code Player} to be compared.
      * @return the value {@code 0} if the argument {@code Player} is an instance or subclass of this object,
-     *         otherwise {@link Integer#MIN_VALUE}.
+     *     otherwise {@link Integer#MIN_VALUE}.
      */
     @Override
     public int compareTo(Player anotherPlayer) {

@@ -82,15 +82,15 @@ public class ComputerPlayer extends Player {
     }
 
     @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), playerNumber);
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
 
         return super.equals(o) && o instanceof ComputerPlayer && playerNumber == ((ComputerPlayer) o).playerNumber;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(super.hashCode(), playerNumber);
     }
 
     /**
@@ -98,12 +98,12 @@ public class ComputerPlayer extends Player {
      *
      * @param anotherPlayer the {@code Player} to be compared.
      * @return the value {@code 0} if the argument {@code Player} is an instance or subclass of this object
-     *         and has the same player number;
-     *         a value less than {@code 0} if the player number of this object is numerically less than
-     *         the argument {@code Player};
-     *         and a value greater than {@code 0} if the player number of this object is
-     *         numerically greater than the argument the argument {@code Player},
-     *         otherwise {@code 1}.
+     *     and has the same player number;
+     *     a value less than {@code 0} if the player number of this object is numerically less than
+     *     the argument {@code Player};
+     *     and a value greater than {@code 0} if the player number of this object is
+     *     numerically greater than the argument the argument {@code Player},
+     *     otherwise {@code 1}.
      */
     @Override
     public int compareTo(Player anotherPlayer) {
